@@ -99,7 +99,6 @@ wget https://raw.githubusercontent.com/Zuz99/main/SLDNS/install-sldns && chmod +
 # install shadowsocks plugin
  wget https://raw.githubusercontent.com/Zuz99/main/shadowsocks-plugin/install-ss-plugin.sh && chmod +x install-ss-plugin.sh && ./install-ss-plugin.sh
  
-
 rm -f /root/ssh-vpn.sh
 rm -f /root/sstp.sh
 rm -f /root/wg.sh
