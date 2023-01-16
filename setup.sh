@@ -17,22 +17,6 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
-MYIP=$(wget -qO- ipinfo.io/ip);
-IZIN=$( curl https://raw.githubusercontent.com/Zuz99/lock/main/iplist?token=GHSAT0AAAAAAB5NMG7K6GXAVB5H2PRI6ATKY6FRZZA | grep $MYIP )
-if [ $MYIP = $IZIN ]; then
-clear
-echo -e "${green}Good! Akses diterima...${NC}"
-sleep 5
-else
-clear
-echo ""
-rm -f setup.sh
-echo '                            ...                           '
-echo '        Akses anda di TOLAK!     '
-echo '                            ...                           '
-sleep 5
-exit 0
-fi
 
 # ==========================================
 # Link Hosting Kalian Untuk Ssh Vpn
