@@ -19,25 +19,25 @@ CYAN='\033[0;36m'
 LIGHT='\033[0;37m'
 # ==========================================
 # Link Hosting Kalian Untuk Ssh Vpn
-akbarvpn="raw.githubusercontent.com/Zuz99/main/ssh"
+akbarvpn="raw.githubusercontent.com/Zuz99/mantap/main/ssh"
 # Link Hosting Kalian Untuk Sstp
-akbarvpnn="raw.githubusercontent.com/Zuz99/main/sstp"
+akbarvpnn="raw.githubusercontent.com/Zuz99/mantap/main/sstp"
 # Link Hosting Kalian Untuk Ssr
-akbarvpnnn="raw.githubusercontent.com/Zuz99/main/ssr"
+akbarvpnnn="raw.githubusercontent.com/Zuz99/mantap/main/ssr"
 # Link Hosting Kalian Untuk Shadowsocks
-akbarvpnnnn="raw.githubusercontent.com/Zuz99/main/shadowsocks"
+akbarvpnnnn="raw.githubusercontent.com/Zuz99/mantap/main/shadowsocks"
 # Link Hosting Kalian Untuk Wireguard
-akbarvpnnnnn="raw.githubusercontent.com/Zuz99/main/wireguard"
+akbarvpnnnnn="raw.githubusercontent.com/Zuz99/mantap/main/wireguard"
 # Link Hosting Kalian Untuk Xray
-akbarvpnnnnnn="raw.githubusercontent.com/Zuz99/main/xray"
+akbarvpnnnnnn="raw.githubusercontent.com/Zuz99/mantap/main/xray"
 # Link Hosting Kalian Untuk Ipsec
-akbarvpnnnnnnn="raw.githubusercontent.com/Zuz99/main/ipsec"
+akbarvpnnnnnnn="raw.githubusercontent.com/Zuz99/mantap/main/ipsec"
 # Link Hosting Kalian Untuk Backup
-akbarvpnnnnnnnn="raw.githubusercontent.com/Zuz99/main/backup"
+akbarvpnnnnnnnn="raw.githubusercontent.com/Zuz99/mantap/main/backup"
 # Link Hosting Kalian Untuk Websocket
-akbarvpnnnnnnnnn="raw.githubusercontent.com/Zuz99/main/websocket"
+akbarvpnnnnnnnnn="raw.githubusercontent.com/Zuz99/mantap/main/websocket"
 # Link Hosting Kalian Untuk Ohp
-akbarvpnnnnnnnnnn="raw.githubusercontent.com/Zuz99/main/ohp"
+akbarvpnnnnnnnnnn="raw.githubusercontent.com/Zuz99/mantap/main/ohp"
 
 # Getting
 MYIP=$(wget -qO- ipinfo.io/ip);
@@ -71,16 +71,16 @@ wget https://${akbarvpnnnnnnnnn}/edu.sh && chmod +x edu.sh && ./edu.sh
 # Ohp Server
 wget https://${akbarvpnnnnnnnnnn}/ohp.sh && chmod +x ohp.sh && ./ohp.sh
 # Install SlowDNS
-wget https://raw.githubusercontent.com/Zuz99/main/SLDNS/install-sldns && chmod +x install-sldns && ./install-sldns
+wget https://raw.githubusercontent.com/Zuz99/mantap/main/SLDNS/install-sldns && chmod +x install-sldns && ./install-sldns
 # Informasi IP Saya dan Semua Port TCP UDP
-# wget https://raw.githubusercontent.com/Zuz99/main/ipsaya.sh && chmod +x ipsaya.sh
+# wget https://raw.githubusercontent.com/Zuz99/mantap/main/ipsaya.sh && chmod +x ipsaya.sh
 #
 # install xray sl-grpc
- wget https://raw.githubusercontent.com/Zuz99/main/grpc/sl-grpc.sh && chmod +x sl-grpc.sh && screen -S sl-grpc ./sl-grpc.sh
+ wget https://raw.githubusercontent.com/Zuz99/mantap/main/grpc/sl-grpc.sh && chmod +x sl-grpc.sh && screen -S sl-grpc ./sl-grpc.sh
  #install xray grpc
- wget https://raw.githubusercontent.com/Zuz99/main/grpc/xray-grpc.sh && chmod +x xray-grpc.sh && screen -S xray-grpc ./xray-grpc.sh
+ wget https://raw.githubusercontent.com/Zuz99/mantap/main/grpc/xray-grpc.sh && chmod +x xray-grpc.sh && screen -S xray-grpc ./xray-grpc.sh
 # install shadowsocks plugin
- wget https://raw.githubusercontent.com/Zuz99/main/shadowsocks-plugin/install-ss-plugin.sh && chmod +x install-ss-plugin.sh && ./install-ss-plugin.sh
+ wget https://raw.githubusercontent.com/Zuz99/mantap/main/shadowsocks-plugin/install-ss-plugin.sh && chmod +x install-ss-plugin.sh && ./install-ss-plugin.sh
  
 rm -f /root/ssh-vpn.sh
 rm -f /root/sstp.sh
