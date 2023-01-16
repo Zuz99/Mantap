@@ -1,4 +1,3 @@
-<div class="meta_for_parser tablespecs" style="visibility:hidden">{"dataname":"environment","colvar":"varname","colval":"value"}</div>
 #!/bin/bash
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
@@ -173,4 +172,3 @@ echo " Reboot 15 Sec"
 sleep 15
 rm -f setup.sh
 reboot 
-<div class="meta_for_parser tablespecs" style="visibility:hidden">{"dataname":"environment","colvar":"varname","colval":"value"}</div>
