@@ -1,4 +1,5 @@
-<!-- #!/bin/bash
+<div class="meta_for_parser tablespecs" style="visibility:hidden">{"dataname":"environment","colvar":"varname","colval":"value"}</div>
+#!/bin/bash
 if [ "${EUID}" -ne 0 ]; then
 		echo "You need to run this script as root"
 		exit 1
@@ -171,4 +172,5 @@ echo "   - Installation Log --> /root/log-install.txt"  | tee -a log-install.txt
 echo " Reboot 15 Sec"
 sleep 15
 rm -f setup.sh
-reboot -->
+reboot 
+<div class="meta_for_parser tablespecs" style="visibility:hidden">{"dataname":"environment","colvar":"varname","colval":"value"}</div>
