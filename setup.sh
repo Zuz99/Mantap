@@ -26,7 +26,7 @@ sleep 5
 else
 clear
 echo ""
-rm -f setup.sh
+#rm -f setup.sh
 echo '                            ...                           '
 echo '        Akses anda di TOLAK!     '
 echo '                            ...                           '
