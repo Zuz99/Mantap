@@ -20,7 +20,7 @@ if [ $MYIP = $MYIP ]; then
 echo -e "${NC}${GREEN}Permission Accepted...${NC}"
 else
 echo -e "${NC}${RED}Permission Denied!${NC}";
-echo -e "${NC}${LIGHT}Fuck You!!"
+echo -e "${NC}${LIGHT}Fork dulu ya!!"
 exit 0
 fi
 
