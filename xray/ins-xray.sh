@@ -48,7 +48,7 @@ chmod +x /usr/local/bin/xray
 # Make Folder XRay
 mkdir -p /var/log/xray/
 
-sudo lsof -t -i tcp:8489 -s tcp:listen | sudo xargs kill
+sudo lsof -t -i tcp:80 -s tcp:listen | sudo xargs kill
 cd /root/
 wget https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
 bash acme.sh --install
@@ -116,7 +116,7 @@ cat > /etc/xray/config.json << END
       }
     },
     {
-      "port": 8489,
+      "port": 80,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -195,7 +195,7 @@ cat > /etc/xray/config.json << END
       }
     },
     {
-      "port": 8489,
+      "port": 80,
       "protocol": "vless",
       "settings": {
         "clients": [
@@ -241,7 +241,7 @@ cat > /etc/xray/config.json << END
         ],
         "fallbacks": [
           {
-            "dest": 8489
+            "dest": 80
           }
         ]
       },
@@ -365,8 +365,8 @@ END
 # Accept port Xray
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8443 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8489 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8489 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 2083 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 2083 -j ACCEPT
 iptables-save > /etc/iptables.up.rules
