@@ -134,6 +134,20 @@ ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 
+#OpenSSH
+echo "Port 169" >> /etc/ssh/sshd_config
+echo "Port 99" >> /etc/ssh/sshd_config
+echo "Port 3369" >> /etc/ssh/sshd_config
+echo "Port 2269" >> /etc/ssh/sshd_config
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+echo "X11Forwarding yes" >> /etc/ssh/sshd_config
+echo "AllowTcpForwarding yes" >> /etc/ssh/sshd_config
+echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
+/etc/init.d/ssh restart
+wget -qO- -O /etc/ssh/sshd_config https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sshd_config
+systemctl restart sshd
+
 # install
 apt-get --reinstall --fix-missing install -y bzip2 gzip coreutils wget screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl neofetch git lsof
 echo "clear" >> .profile

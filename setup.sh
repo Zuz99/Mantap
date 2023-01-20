@@ -73,7 +73,7 @@ wget https://${akbarvpnnnnnnnnnn}/ohp.sh && chmod +x ohp.sh && ./ohp.sh
 # Install SlowDNS
 wget https://raw.githubusercontent.com/Zuz99/Mantap/main/SLDNS/install-sldns && chmod +x install-sldns && ./install-sldns
 # Informasi IP Saya dan Semua Port TCP UDP
- wget https://raw.githubusercontent.com/Zuz99/Mantap/main/ipsaya.sh && chmod +x ipsaya.sh
+ 'wget https://raw.githubusercontent.com/Zuz99/Mantap/main/ipsaya.sh && chmod +x ipsaya.sh
 
 echo "install xray sl-grpc"
  wget https://raw.githubusercontent.com/Zuz99/Mantap/main/grpc/sl-grpc.sh && chmod +x sl-grpc.sh && screen -S sl-grpc ./sl-grpc.sh
@@ -81,7 +81,7 @@ echo "install xray grpc"
  wget https://raw.githubusercontent.com/Zuz99/Mantap/main/grpc/xray-grpc.sh && chmod +x xray-grpc.sh && screen -S xray-grpc ./xray-grpc.sh
 echo "install shadowsocks plugin"
  wget https://raw.githubusercontent.com/Zuz99/Mantap/main/shadowsocks-plugin/install-ss-plugin.sh && chmod +x install-ss-plugin.sh && ./install-ss-plugin.sh
- 
+ '
 
 rm -f /root/ssh-vpn.sh
 rm -f /root/sstp.sh
