@@ -20,11 +20,11 @@ echo "$SUB_DOMAIN" >> /etc/v2ray/domain
 #
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
 subsl=$(</dev/urandom tr -dc a-z0-9 | head -c5)
-DOMAIN=mantapxsl.my.id
-SUB_DOMAIN=onichan-${sub}.mantapxsl.my.id
-NS_DOMAIN=zerosl-${sub}.mantapxsl.my.id
-CF_ID=slinfinity69@gmail.com
-CF_KEY=dd2c5e0313f122b3c1833471d469b1025f492
+DOMAIN=digvpn.my.id
+SUB_DOMAIN=github-${sub}.digvpn.my.id
+NS_DOMAIN=githubsl-${sub}.digvpn.my.id
+CF_ID=andri.myid@gmail.com
+CF_KEY=1b2fb1e96e256e71b8b707613445dac391f8f
 set -euo pipefail
 IP=$(wget -qO- icanhazip.com);
 echo "Updating DNS for ${SUB_DOMAIN}..."

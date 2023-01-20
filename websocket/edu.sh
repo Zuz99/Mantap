@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/Zuz99
 # Proxy For Edukasi & Imclass
 # SL
 # ==========================================

@@ -37,13 +37,22 @@ xraycore_link="https://github.com/XTLS/Xray-core/releases/download/v$latest_vers
 # / / Make Main Directory
 mkdir -p /usr/bin/xray
 mkdir -p /etc/xray
-
+mkdir -p /usr/local/etc/xray
 # / / Unzip Xray Linux 64
 cd `mktemp -d`
 curl -sL "$xraycore_link" -o xray.zip
 unzip -q xray.zip && rm -rf xray.zip
 mv xray /usr/local/bin/xray
 chmod +x /usr/local/bin/xray
+
+## hapus
+rm -rf /etc/nginx/conf.d/alone.conf
+# stop
+/etc/init.d/nginx stop
+systemctl stop nginx
+
+# / / Ambil Xray Core Version Terbaru
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u www-data --version 1.6.6
 
 # Make Folder XRay
 mkdir -p /var/log/xray/
