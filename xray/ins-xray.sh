@@ -1,33 +1,146 @@
 #!/bin/bash
-# Mod By SL
-# =====================================================
+# =========================================
+# Quick Setup | Script Setup Manager
+# Edition : Stable Edition V1.0
+# Auther  : Adit Ardiansyah
+# (C) Copyright 2022
+# =========================================
+# // Export Color & Information
+dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+#########################
 
-# Color
-RED='\033[0;31m'
-NC='\033[0m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-LIGHT='\033[0;37m'
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CYAN='\033[0;36m'
+export LIGHT='\033[0;37m'
+export NC='\033[0m'
 
-MYIP=$(wget -qO- ipinfo.io/ip);
+# // Export Banner Status Information
+export EROR="[${RED} EROR ${NC}]"
+export INFO="[${YELLOW} INFO ${NC}]"
+export OKEY="[${GREEN} OKEY ${NC}]"
+export PENDING="[${YELLOW} PENDING ${NC}]"
+export SEND="[${YELLOW} SEND ${NC}]"
+export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
+
+# // Export Align
+export BOLD="\e[1m"
+export WARNING="${RED}\e[5m"
+export UNDERLINE="\e[4m"
+
+# // Root Checking
+if [ "${EUID}" -ne 0 ]; then
+		echo -e "${EROR} Please Run This Script As Root User !"
+		exit 1
+fi
 clear
+source /var/lib/scrz-prem/ipvps.conf
+if [[ "$IP" = "" ]]; then
 domain=$(cat /etc/xray/domain)
-apt install iptables iptables-persistent -y
-apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y 
-apt install socat cron bash-completion ntpdate -y
+else
+domain=$IP
+fi
 
-ntpdate pool.ntp.org
+echo -e "[ ${GREEN}INFO${NC} ] Checking... "
+sleep 1
+echo -e "[ ${GREEN}INFO$NC ] Setting ntpdate"
+sleep 1
+domain=$(cat /root/domain)
+apt install iptables iptables-persistent -y
+apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y
+apt install socat cron bash-completion ntpdate -y
+#ntpdate pool.ntp.org
+ntpdate -u pool.ntp.org
 apt -y install chrony
 timedatectl set-ntp true
-systemctl enable chronyd && systemctl restart chronyd
+#systemctl enable chronyd && systemctl restart chronyd
 systemctl enable chrony && systemctl restart chrony
 timedatectl set-timezone Asia/Jakarta
-chronyc sourcestats -v
-chronyc tracking -v
-date
+#chronyc sourcestats -v
+#chronyc tracking -v
+apt install curl pwgen openssl netcat cron -y
+
+# Make Folder & Log XRay & Log Trojan
+rm -fr /var/log/xray
+#rm -fr /var/log/trojan
+rm -fr /home/vps/public_html
+mkdir -p /var/log/xray
+#mkdir -p /var/log/trojan
+mkdir -p /home/vps/public_html
+chown www-data.www-data /var/log/xray
+chown www-data.www-data /etc/xray
+chmod +x /var/log/xray
+#chmod +x /var/log/trojan
+touch /var/log/xray/access.log
+touch /var/log/xray/error.log
+touch /var/log/xray/access2.log
+touch /var/log/xray/error2.log
+# Make Log Autokill & Log Autoreboot
+rm -fr /root/log-limit.txt
+rm -fr /root/log-reboot.txt
+touch /root/log-limit.txt
+touch /root/log-reboot.txt
+touch /home/limit
+echo "" > /root/log-limit.txt
+echo "" > /root/log-reboot.txt
+
+# Install Wondershaper
+cd /root/
+apt install wondershaper -y
+git clone https://github.com/magnific0/wondershaper.git >/dev/null 2>&1
+cd wondershaper
+make install
+cd
+rm -fr /root/wondershaper
+echo > /home/limit
+
+# nginx for debian & ubuntu
+install_ssl(){
+    if [ -f "/usr/bin/apt-get" ];then
+            isDebian=`cat /etc/issue|grep Debian`
+            if [ "$isDebian" != "" ];then
+                    apt-get install -y nginx certbot
+                    apt install -y nginx certbot
+                    sleep 3s
+            else
+                    apt-get install -y nginx certbot
+                    apt install -y nginx certbot
+                    sleep 3s
+            fi
+    else
+        yum install -y nginx certbot
+        sleep 3s
+    fi
+
+    systemctl stop nginx.service
+
+    if [ -f "/usr/bin/apt-get" ];then
+            isDebian=`cat /etc/issue|grep Debian`
+            if [ "$isDebian" != "" ];then
+                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+                    sleep 3s
+            else
+                    echo "A" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+                    sleep 3s
+            fi
+    else
+        echo "Y" | certbot certonly --renew-by-default --register-unsafely-without-email --standalone -d $domain
+        sleep 3s
+    fi
+}
+
+# install nginx
+apt install -y nginx
+cd
+rm -fr /etc/nginx/sites-enabled/default
+rm -fr /etc/nginx/sites-available/default
+wget -q -O /etc/nginx/nginx.conf "https://digvpn.my.id/v1.1/nginx.conf" 
+#mkdir -p /home/vps/public_html
+wget -q -O /etc/nginx/conf.d/vps.conf "https://digvpn.my.id/v1.1/vps.conf"
 
 # Install Xray #
 #==========#
@@ -60,19 +173,6 @@ worryfree=$((RANDOM + 10000))
 kuotahabis=$((RANDOM + 10000))
 vmessgrpc=$((RANDOM + 10000))
 trojangrpc=$((RANDOM + 10000))
-
-service squid start
-#pw sodosok
-openssl rand -base64 16 > /etc/xray/passwd
-bijikk=$(openssl rand -base64 16 )
-pelerr=$(cat /etc/xray/passwd)
-
-# set uuid xray
-uuid=$(cat /proc/sys/kernel/random/uuid)
-
-# // Certificate File
-path_crt="/etc/xray/xray.crt"
-path_key="/etc/xray/xray.key"
 
 # nginx xray.conf
 rm -fr /etc/nginx/conf.d/xray.conf
@@ -210,7 +310,15 @@ sed -i '$ igrpc_set_header Host \$http_host;' /etc/nginx/conf.d/xray.conf
 sed -i '$ igrpc_pass grpc://127.0.0.1:'"$ssgrpc"';' /etc/nginx/conf.d/xray.conf
 sed -i '$ i}' /etc/nginx/conf.d/xray.conf
 
-# Buat Config Xray
+#pw sodosok
+openssl rand -base64 16 > /etc/xray/passwd
+bijikk=$(openssl rand -base64 16 )
+pelerr=$(cat /etc/xray/passwd)
+
+# set uuid xray
+uuid=$(cat /proc/sys/kernel/random/uuid)
+
+# xray config
 cat <<EOF> /etc/xray/config.json
 {
   "log" : {
@@ -504,9 +612,9 @@ cat <<EOF> /etc/xray/config.json
   }
 }
 EOF
-
-
-# / / Installation Xray Service
+# Installing Xray Service
+rm -fr /etc/systemd/system/xray.service.d
+rm -fr /etc/systemd/system/xray.service
 cat <<EOF> /etc/systemd/system/xray.service
 Description=Xray Service
 Documentation=https://github.com/xtls
@@ -527,140 +635,23 @@ LimitNOFILE=1000000
 WantedBy=multi-user.target
 EOF
 
-# // Enable & Start Service
-# Accept port Xray
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8443 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8443 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 80 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 2083 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 2083 -j ACCEPT
-iptables-save > /etc/iptables.up.rules
-iptables-restore -t < /etc/iptables.up.rules
-netfilter-persistent save
-netfilter-persistent reload
-systemctl daemon-reload
-systemctl stop xray.service
-systemctl start xray.service
-systemctl enable xray.service
-systemctl restart xray.service
-
-# Install Trojan Go
-latest_version="$(curl -s "https://api.github.com/repos/p4gefau1t/trojan-go/releases" | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
-trojango_link="https://github.com/p4gefau1t/trojan-go/releases/download/v${latest_version}/trojan-go-linux-amd64.zip"
-mkdir -p "/usr/bin/trojan-go"
-mkdir -p "/etc/trojan-go"
-cd `mktemp -d`
-curl -sL "${trojango_link}" -o trojan-go.zip
-unzip -q trojan-go.zip && rm -rf trojan-go.zip
-mv trojan-go /usr/local/bin/trojan-go
-chmod +x /usr/local/bin/trojan-go
-mkdir /var/log/trojan-go/
-touch /etc/trojan-go/akun.conf
-touch /var/log/trojan-go/trojan-go.log
-
-# Buat Config Trojan Go
-cat > /etc/trojan-go/config.json << END
-{
-  "run_type": "server",
-  "local_addr": "0.0.0.0",
-  "local_port": 2087,
-  "remote_addr": "127.0.0.1",
-  "remote_port": 89,
-  "log_level": 1,
-  "log_file": "/var/log/trojan-go/trojan-go.log",
-  "password": [
-      "$uuid"
-  ],
-  "disable_http_check": true,
-  "udp_timeout": 60,
-  "ssl": {
-    "verify": false,
-    "verify_hostname": false,
-    "cert": "/etc/xray/xray.crt",
-    "key": "/etc/xray/xray.key",
-    "key_password": "",
-    "cipher": "",
-    "curves": "",
-    "prefer_server_cipher": false,
-    "sni": "$domain",
-    "alpn": [
-      "http/1.1"
-    ],
-    "session_ticket": true,
-    "reuse_session": true,
-    "plain_http_response": "",
-    "fallback_addr": "127.0.0.1",
-    "fallback_port": 0,
-    "fingerprint": "firefox"
-  },
-  "tcp": {
-    "no_delay": true,
-    "keep_alive": true,
-    "prefer_ipv4": true
-  },
-  "mux": {
-    "enabled": false,
-    "concurrency": 8,
-    "idle_timeout": 60
-  },
-  "websocket": {
-    "enabled": true,
-    "path": "/trojango",
-    "host": "$domain"
-  },
-    "api": {
-    "enabled": false,
-    "api_addr": "",
-    "api_port": 0,
-    "ssl": {
-      "enabled": false,
-      "key": "",
-      "cert": "",
-      "verify_client": false,
-      "client_cert": []
-    }
-  }
-}
-END
-
-# Installing Trojan Go Service
-cat > /etc/systemd/system/trojan-go.service << END
-[Unit]
-Description=Trojan-Go Service Mod By SL
-Documentation=nekopoi.care
-After=network.target nss-lookup.target
-
-[Service]
-User=root
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
-ExecStart=/usr/local/bin/trojan-go -config /etc/trojan-go/config.json
-Restart=on-failure
-RestartPreventExitStatus=23
-
-[Install]
-WantedBy=multi-user.target
-END
-
-# Trojan Go Uuid
-cat > /etc/trojan-go/uuid.txt << END
-$uuid
-END
-
-# restart
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 2086 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 2087 -j ACCEPT
-iptables-save > /etc/iptables.up.rules
-iptables-restore -t < /etc/iptables.up.rules
-netfilter-persistent save
-netfilter-persistent reload
-systemctl daemon-reload
-systemctl stop trojan-go
-systemctl start trojan-go
-systemctl enable trojan-go
-systemctl restart trojan-go
-
-cd
-cp /root/domain /etc/xray
+echo -e "[ ${GREEN}ok${NC} ] Enable & Start & Restart & Xray"
+systemctl daemon-reload >/dev/null 2>&1
+systemctl enable xray >/dev/null 2>&1
+systemctl start xray >/dev/null 2>&1
+systemctl restart xray >/dev/null 2>&1
+echo -e "[ ${GREEN}ok${NC} ] Enable & Start & Restart & Nginx"
+systemctl daemon-reload >/dev/null 2>&1
+systemctl enable nginx >/dev/null 2>&1
+systemctl start nginx >/dev/null 2>&1
+systemctl restart nginx >/dev/null 2>&1
+# Restart All Service
+echo -e "$yell[SERVICE]$NC Restart All Service"
+sleep 1
+chown -R www-data:www-data /home/vps/public_html
+# Enable & Restart & Xray & Trojan & Nginx
+sleep 1
+echo -e "[ ${GREEN}ok${NC} ] Restart & Xray & Nginx"
+systemctl daemon-reload >/dev/null 2>&1
+systemctl restart xray >/dev/null 2>&1
+systemctl restart nginx >/dev/null 2>&1
