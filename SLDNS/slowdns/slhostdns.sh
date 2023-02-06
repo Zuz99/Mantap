@@ -10,8 +10,8 @@ rm nsdomain
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c5)
 subsl=$(</dev/urandom tr -dc a-x0-9 | head -c5)
 DOMAIN=digvpn.my.id
-SUB_DOMAIN=onichan-${sub}.digvpn.my.id
-NS_DOMAIN=slowdns-${subsl}.digvpn.my.id
+SUB_DOMAIN=1-${sub}.digvpn.my.id
+NS_DOMAIN=2-${subsl}.digvpn.my.id
 CF_ID=andri.myid@gmail.com
 CF_KEY=dd2c5e0313f122b3c1833471d469b1025f492
 echo "IP=""$SUB_DOMAIN" >> /var/lib/crot/subdomain.conf
