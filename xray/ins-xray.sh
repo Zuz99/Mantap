@@ -61,13 +61,13 @@ vmessgrpc=$((RANDOM + 10000))
 trojangrpc=$((RANDOM + 10000))
 
 service squid start
-uuid7=$(cat /proc/sys/kernel/random/uuid)
-uuid1=$(cat /proc/sys/kernel/random/uuid)
-uuid2=$(cat /proc/sys/kernel/random/uuid)
-uuid3=$(cat /proc/sys/kernel/random/uuid)
-uuid4=$(cat /proc/sys/kernel/random/uuid)
-uuid5=$(cat /proc/sys/kernel/random/uuid)
-uuid6=$(cat /proc/sys/kernel/random/uuid)
+#pw sodosok
+openssl rand -base64 16 > /etc/xray/passwd
+bijikk=$(openssl rand -base64 16 )
+pelerr=$(cat /etc/xray/passwd)
+
+# set uuid xray
+uuid=$(cat /proc/sys/kernel/random/uuid)
 
 # // Certificate File
 path_crt="/etc/xray/xray.crt"
